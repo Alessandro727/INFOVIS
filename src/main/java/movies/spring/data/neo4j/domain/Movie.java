@@ -22,16 +22,16 @@ public class Movie {
 
 	private String title;
 
-	private Long id_movie;
+	private String id_movie;
 
 	
-	@Relationship(type = "RELATED", direction = Relationship.INCOMING)
+	@Relationship(type = "RELATED", direction = Relationship.OUTGOING)
 	private List<Role> rolesIn = new ArrayList<Role>();
 
 	public Movie() {
 	}
 
-	public Movie(String title, Long id_movie) {
+	public Movie(String title, String id_movie) {
 
 		this.title = title;
 		this.setId_movie(id_movie);
@@ -60,11 +60,11 @@ public class Movie {
 		this.rolesIn.add(role);
 	}
 
-	public Long getId_movie() {
+	public String getId_movie() {
 		return id_movie;
 	}
 
-	public void setId_movie(Long id_movie) {
+	public void setId_movie(String id_movie) {
 		this.id_movie = id_movie;
 	}
 }

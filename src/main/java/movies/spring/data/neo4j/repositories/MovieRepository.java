@@ -19,7 +19,7 @@ public interface MovieRepository extends PagingAndSortingRepository<Movie, Long>
 
 	Collection<Movie> findByTitleLike(@Param("title") String title);
 
-	@Query("MATCH (m:Movie)<-[r:RELATED]-(a:Movie) RETURN m,r,a LIMIT {limit}")
+	@Query("MATCH (m:Movie)<-[r:RELATED]-(a:Movie) WHERE m.title = 'Paradise Found' RETURN m,r,a LIMIT {limit}")
 	Collection<Movie> graph(@Param("limit") int limit);
 }
 

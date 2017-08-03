@@ -9,10 +9,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import it.uniroma3.polyVisualization.model.Movie;
 
-/**
- * @author Michael Hunger
- * @author Mark Angrish
- */
 @RepositoryRestResource(collectionResourceRel = "movies", path = "movies")
 public interface MovieRepository extends PagingAndSortingRepository<Movie, Long> {
 

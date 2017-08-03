@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.uniroma3.polyVisualization.services.MovieService;
 
-/**
- * @author Mark Angrish
- */
 @RestController("/")
 public class MovieController {
 

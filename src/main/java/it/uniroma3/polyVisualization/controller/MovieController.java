@@ -1,12 +1,13 @@
-package movies.spring.data.neo4j.controller;
+package it.uniroma3.polyVisualization.controller;
 
 import java.util.Map;
 
-import movies.spring.data.neo4j.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import it.uniroma3.polyVisualization.services.MovieService;
 
 /**
  * @author Mark Angrish

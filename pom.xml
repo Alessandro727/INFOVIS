@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.neo4j.examples</groupId>
-    <artifactId>sdn4-movies</artifactId>
+    <artifactId>polyVisualization</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>SDN4 University</name>
-    <description>Demo web project for Spring Boot using Spring Data Neo4j</description>
+    <name>PolyVisualization</name>
+    <description>Web project for INFOVIS course.</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

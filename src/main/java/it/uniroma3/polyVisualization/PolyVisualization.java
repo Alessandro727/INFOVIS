@@ -1,4 +1,4 @@
-package movies.spring.data.neo4j;
+package it.uniroma3.polyVisualization;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,10 +9,10 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
  * @author Mark Angrish
  */
 @SpringBootApplication
-@EntityScan("movies.spring.data.neo4j.domain")
-public class SampleMovieApplication {
+@EntityScan("it.uniroma3.polyVisualization.model")
+public class PolyVisualization {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SampleMovieApplication.class, args);
+		SpringApplication.run(PolyVisualization.class, args);
 	}
 }

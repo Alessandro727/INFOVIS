@@ -1,13 +1,14 @@
-package movies.spring.data.neo4j.services;
+package it.uniroma3.polyVisualization.services;
 
 import java.util.*;
 
-import movies.spring.data.neo4j.domain.Movie;
-import movies.spring.data.neo4j.domain.Role;
-import movies.spring.data.neo4j.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import it.uniroma3.polyVisualization.model.Movie;
+import it.uniroma3.polyVisualization.model.Role;
+import it.uniroma3.polyVisualization.repositories.MovieRepository;
 
 @Service
 public class MovieService {
@@ -25,10 +26,10 @@ public class MovieService {
 			int target = i;
 			i++;
 			for (Role role : movie.getRoles()) {
-				Map<String, Object> actor = map("title", role.getMovie2().getTitle(), "label", "movie");
-				int source = nodes.indexOf(actor);
+				Map<String, Object> otherMovie = map("title", role.getMovie2().getTitle(), "label", "movie");
+				int source = nodes.indexOf(otherMovie);
 				if (source == -1) {
-					nodes.add(actor);
+					nodes.add(otherMovie);
 					source = i++;
 				}
 				rels.add(map("source", source, "target", target));

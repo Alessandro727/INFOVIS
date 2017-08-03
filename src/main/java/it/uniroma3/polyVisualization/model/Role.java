@@ -1,4 +1,4 @@
-package movies.spring.data.neo4j.domain;
+package it.uniroma3.polyVisualization.model;
 
 
 import java.util.ArrayList;

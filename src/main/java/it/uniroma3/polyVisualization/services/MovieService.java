@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.uniroma3.polyVisualization.model.Movie;
-import it.uniroma3.polyVisualization.model.Role;
 import it.uniroma3.polyVisualization.repositories.MovieRepository;
 
 @Service
@@ -22,20 +21,11 @@ public class MovieService {
 		Iterator<Movie> result = movies.iterator();
 		while (result.hasNext()) {
 			Movie movie = result.next();
-			nodes.add(map("title", movie.getTitle(), "label", "movie"));
-			int target = i;
+			nodes.add(this.map("title", movie.getTitle(), "label", "movie"));
+			rels.add(this.map("source", 0, "target", i));
 			i++;
-			for (Role role : movie.getRoles()) {
-				Map<String, Object> otherMovie = map("title", role.getMovie2().getTitle(), "label", "movie");
-				int source = nodes.indexOf(otherMovie);
-				if (source == -1) {
-					nodes.add(otherMovie);
-					source = i++;
-				}
-				rels.add(map("source", source, "target", target));
-			}
 		}
-		return map("nodes", nodes, "links", rels);
+		return this.map("nodes", nodes, "links", rels);
 	}
 
 	private Map<String, Object> map(String key1, Object value1, String key2, Object value2) {
@@ -48,6 +38,6 @@ public class MovieService {
 	@Transactional(readOnly = true)
 	public Map<String, Object>  graph(String title) {
 		Collection<Movie> result = movieRepository.graph(title);
-		return toD3Format(result);
+		return this.toD3Format(result);
 	}
 }

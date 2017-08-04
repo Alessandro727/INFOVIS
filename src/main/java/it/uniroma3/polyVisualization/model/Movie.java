@@ -22,9 +22,9 @@ public class Movie {
 	private String id_movie;
 
 	
-	@Relationship(type = "RELATED", direction = Relationship.INCOMING)
+	@Relationship(type = "RELATED", direction = "both")
 	private List<Role> roles = new ArrayList<Role>();
-	
+
 	public Movie() {
 	}
 
@@ -51,6 +51,8 @@ public class Movie {
 		return this.roles;
 	}
 
+
+	
 	public void addRole(Role role) {
 		this.roles.add(role);
 	}
@@ -62,5 +64,4 @@ public class Movie {
 	public void setId_movie(String id_movie) {
 		this.id_movie = id_movie;
 	}
-	
 }

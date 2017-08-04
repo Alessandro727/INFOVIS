@@ -23,4 +23,5 @@ public class MovieController {
 	public Map<String, Object> graph(@RequestParam(value = "title",required = true) String title) {
 		return movieService.graph(title);
 	}
+	
 }

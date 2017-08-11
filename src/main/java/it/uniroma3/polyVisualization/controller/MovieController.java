@@ -24,4 +24,9 @@ public class MovieController {
 		return movieService.graph(title);
 	}
 	
+	@RequestMapping("/tree")
+	public String tree(@RequestParam(value = "json",required = true) String json) {
+		return json;
+	}
+	
 }

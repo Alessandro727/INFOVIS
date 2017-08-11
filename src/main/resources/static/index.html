@@ -7,7 +7,8 @@
 </head>
 
 <body>
-	<div id="graph"></div>
+
+	
 	<div role="navigation" class="navbar navbar-default navbar-static-top">
 		<div class="container">
 			<div class="row">
@@ -24,33 +25,19 @@
 							</form>
 						</li>
 					</ul>
-				</div>
+				</div> 
 				<div class="navbar-header col-sm-6 col-md-6">
 					<div class="navbar-brand">
 						<div class="brand">Movies</div>
 					</div>
-				</div>
+				</div> 
 			</div>
 		</div>
-	</div>
+	</div> 
 
-	<!--  	<div class="col-md-7">
-			<div class="panel panel-default">
-				<div class="panel-heading" id="title">Details</div>
-				<div class="row">
-					<div class="col-sm-4 col-md-4">
-						<img src="" class="well" id="poster" />
-					</div>
-					<div class="col-md-8 col-sm-8">
-						<h4>Crew</h4>
-						<ul id="crew">
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>-->
 
-	<div class="row" id="row">
+
+	  <div class="row" id="row">
 		<div class="col-md-5" id="tabella">
 			<div class="panel panel-default">
 				<div class="panel-heading">Search Results</div>
@@ -66,11 +53,20 @@
 			</div>
 		</div>
 
-	</div>
+	</div> 
 	<style type="text/css">
 .node {
-	stroke: #222;
+	cursor: pointer;
+}
+
+.node circle {
+	fill: #fff;
+	stroke: steelblue;
 	stroke-width: 1.5px;
+}
+
+.node text {
+	font: 10px sans-serif;
 }
 
 .node.actor {
@@ -82,18 +78,17 @@
 }
 
 .link {
-	stroke: #999;
-	stroke-opacity: .6;
-	stroke-width: 1px;
+	fill: none;
+	stroke: #ccc;
+	stroke-width: 1.5px;
 }
 </style>
 
 	<script type="text/javascript"
 		src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+	<script src="require.js"></script>
 	<script type="text/javascript">
-		var tabella = null;
-
 		$(function() {
 			function showMovie(title) {
 				$
@@ -209,9 +204,6 @@
 								+ ")scale(" + d3.event.scale + ")");
 					});
 
-			//svg.call(zoom) // delete this line to disable free zooming
-			//.call(zoom.event);
-
 			d3.json("/graph?title=".concat(movie), function(error, graph) {
 				if (error)
 					return;
@@ -245,5 +237,12 @@
 			d3.select("svg").remove();
 		}
 	</script>
+	
+	<script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
+	<script type="text/javascript" src="./jsonParser.js">
+		
+	</script>
+
+
 </body>
 </html>

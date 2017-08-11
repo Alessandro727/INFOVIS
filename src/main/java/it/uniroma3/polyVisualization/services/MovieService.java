@@ -40,4 +40,6 @@ public class MovieService {
 		Collection<Movie> result = movieRepository.graph(title);
 		return this.toD3Format(result);
 	}
+	
+	
 }

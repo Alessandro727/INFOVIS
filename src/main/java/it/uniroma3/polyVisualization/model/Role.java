@@ -1,6 +1,5 @@
 package it.uniroma3.polyVisualization.model;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 

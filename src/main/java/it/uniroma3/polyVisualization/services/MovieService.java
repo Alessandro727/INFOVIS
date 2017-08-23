@@ -41,5 +41,4 @@ public class MovieService {
 		return this.toD3Format(result);
 	}
 	
-	
 }

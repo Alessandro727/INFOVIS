@@ -27,7 +27,6 @@ public class CastService {
 
 	@SuppressWarnings("unchecked")
 	private String parse(JSONArray array) {
-
 		Iterator<?> i = array.iterator();
 		while(i.hasNext()) {
 			JSONObject el = (JSONObject) i.next();

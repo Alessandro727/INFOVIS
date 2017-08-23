@@ -5,13 +5,13 @@ import org.json.simple.JSONArray;
 import it.uniroma3.polyVisualization.polystore.PolystoreFactory;
 import it.uniroma3.polystoreMain.Polystore;
 
-public class CastRepository {
+public class MovieDetailsRepository {
 
-	private static final String QUERY = "SELECT * FROM moviecredits, credits, actors WHERE credits.id_actor = actors.id_actor AND moviecredits.id_credit = credits.id_credit AND moviecredits.id_movie = '";
+	private static final String QUERY = "SELECT * FROM movies WHERE movies.id_movie = '";
 
 	public JSONArray details(String id) throws Exception {
 		Polystore polystore = PolystoreFactory.getOrCreate();
 		return polystore.executeQuery(QUERY+id+"'");
 	}
-
+	
 }

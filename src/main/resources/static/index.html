@@ -32,7 +32,7 @@
 
 			</form>
 
-	
+
 			<div class="navbar-brand navbar-default"></div>
 			<div class="navbar-brand navbar-default"></div>
 			<div class="navbar-brand navbar-default"></div>
@@ -45,7 +45,8 @@
 				<button class="btn btn-default" onclick="graphMovie2()"
 					type="submit">Releted Movies</button>
 				<button class="btn btn-default" onclick="showCast()" type="submit">Cast</button>
-				<button class="btn btn-default" onclick="showMovieDetails()" type="submit">Details</button>
+				<button class="btn btn-default" onclick="showMovieDetails()"
+					type="submit">Details</button>
 				<div class="navbar-brand navbar-center"></div>
 
 			</div>
@@ -61,7 +62,7 @@
 				<div class="panel-heading">Search Results</div>
 				<table id="results" class="table table-striped table-hover">
 					<thead>
-						
+
 					</thead>
 					<tbody>
 					</tbody>
@@ -197,9 +198,9 @@
 			d3.json("/graph?title=".concat(movie), function(error, graph) {
 				if (error)
 					return;
-				
+
 				selectedMovieId = graph.nodes[0].id
-				
+
 				force.nodes(graph.nodes).links(graph.links).start();
 
 				link = link.data(graph.links).enter().append("line").attr(
@@ -231,91 +232,102 @@
 
 		function showCast() {
 			clearAll();
-			
-			d3.select("body")
-			.append('div')
-			.attr("id","cast-wrapper")
+
+			d3.select("body").append('div').attr("id", "cast-wrapper")
 			d3.json("/cast?id=".concat(selectedMovieId), function(error, data) {
-		        if (error) throw error;
+				if (error)
+					throw error;
 
-		        var sortAscending = true;
-		        var table = d3.select('#cast-wrapper').append('table');
-		        var titles = d3.keys(data[0]);
-		        var headers = table.append('thead').append('tr')
-		            .selectAll('th')
-		            .data(titles).enter()
-		            .append('th')
-		            .text(function (d) {
-		                return d;
-		            })
-		            .on('click', function (d) {
-		                headers.attr('class', 'header');
+				var sortAscending = true;
+				var table = d3.select('#cast-wrapper').append('table');
+				var titles = d3.keys(data[0]);
+				var headers = table.append('thead').append('tr')
+						.selectAll('th').data(titles).enter().append('th')
+						.text(function(d) {
+							return d;
+						}).on('click', function(d) {
+							headers.attr('class', 'header');
 
-		                if (sortAscending) {
-		                    rows.sort(function(a, b) { return b[d] < a[d]; });
-		                    sortAscending = false;
-		                    this.className = 'aes';
-		                } else {
-		                    rows.sort(function(a, b) { return b[d] > a[d]; });
-		                    sortAscending = true;
-		                    this.className = 'des';
-		                }
+							if (sortAscending) {
+								rows.sort(function(a, b) {
+									return b[d] < a[d];
+								});
+								sortAscending = false;
+								this.className = 'aes';
+							} else {
+								rows.sort(function(a, b) {
+									return b[d] > a[d];
+								});
+								sortAscending = true;
+								this.className = 'des';
+							}
 
-		            });
-
-		        var rows = table.append('tbody').selectAll('tr')
-		            .data(data).enter()
-		            .append('tr');
-		        rows.selectAll('td')
-		            .data(function (d) {
-		                return titles.map(function (k) {
-		                    return { 'value': d[k], 'name': k};
-		                });
-		            }).enter()
-		            .append('td')
-		            .attr('data-th', function (d) {
-		                return d.name;
-		            })
-		            .text(function (d) {
-		                return d.value;
-		            });
-		    });
-		}
-		
-		function showMovieDetails() {
-			clearAll();
+						});
+				
 			
-			d3.select("body")
-			.append('div')
-			.attr("id","wrapper")
-			
-			d3.json("movieDetails?id=".concat(selectedMovieId), function(data){
-				function parse(data){
+				
+				var rows = table.append('tbody').selectAll('tr').data(data)
+						.enter().append('tr');
+				rows.selectAll('td').data(function(d) {
+					return titles.map(function(k) {
+						return {
+							'value' : d[k],
+							'name' : k
+						};
+					});
+				}).enter().append('td').attr('data-th', function(d) {
+					
+					return d.name;
+				}).text(function(d) {
+					return d.value;
+				}).attr('onclick', function(d){
+					if (String(d.name) == "Actor")	{
+						return 'movies2Actor()';
+					}
+					
+				});
 
-					var wrapper = document.getElementById("wrapper");
-//					Get json-data by javascript-object
-					var data2 = data
-//					or from a string by JSON.parse(str) method
-					try {
-						var data2 = JSON.parse(data);
-					} catch (e) {}
-//					Create json-tree
-					var tree = jsonTree.create(data2, wrapper);
-//					Expand all (or selected) child nodes of root (optional)
-					tree.expand(function(node) {
-						return node.childNodes.length < 2 || node.label === 'status';
-					}) 
-			};
-			parse(data);
 			});
 		}
-		
+
+		function showMovieDetails() {
+			clearAll();
+
+			d3.select("body").append('div').attr("id", "wrapper")
+
+			d3.json("movieDetails?id=".concat(selectedMovieId), function(data) {
+				function parse(data) {
+
+					var wrapper = document.getElementById("wrapper");
+					//					Get json-data by javascript-object
+					var data2 = data
+					//					or from a string by JSON.parse(str) method
+					try {
+						var data2 = JSON.parse(data);
+					} catch (e) {
+					}
+					//					Create json-tree
+					var tree = jsonTree.create(data2, wrapper);
+					//					Expand all (or selected) child nodes of root (optional)
+					tree.expand(function(node) {
+						return node.childNodes.length < 2
+								|| node.label === 'status';
+					})
+				}
+				;
+				parse(data);
+			});
+		}
+
 		function clearAll() {
 			d3.select('#cast-wrapper').remove();
 			d3.select("svg").remove();
 			d3.select('#wrapper').remove();
 		}
-		
+
+		function movies2Actor() {
+			console.log("tuttoapposto")
+		}
 	</script>
 	<script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
 

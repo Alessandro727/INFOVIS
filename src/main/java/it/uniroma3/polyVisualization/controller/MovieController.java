@@ -27,7 +27,7 @@ public class MovieController {
 
 	@RequestMapping("/graph")
 	public Map<String, Object> graph(@RequestParam(value = "title",required = true) String title) {
-		return movieService.graph(title);
+		return this.movieService.graph(title);
 	}
 	
 	@RequestMapping("/cast")
@@ -38,11 +38,6 @@ public class MovieController {
 	@RequestMapping("/movieDetails")
 	public String details(@RequestParam(value = "id",required = true) String id) {
 		return this.movieDetailsService.details(id);
-	}
-	
-	@RequestMapping("/tree")
-	public String tree(@RequestParam(value = "json",required = true) String json) {
-		return json;
 	}
 	
 }

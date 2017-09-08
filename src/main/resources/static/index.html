@@ -4,6 +4,7 @@
 <link rel="stylesheet"
 	href="http://neo4j-contrib.github.io/developer-resources/language-guides/assets/css/main.css">
 <link href="/jsonTree.css" rel="stylesheet" />
+<link href="style.css" rel="stylesheet" type="text/css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
@@ -14,17 +15,13 @@
 
 <body>
 
-
-
-
-
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
-		
-			<div class="navbar-brand navbar-default" ></div>
-			<div class="navbar-brand navbar-default" ></div>
-			<div class="navbar-brand navbar-default" ></div>
-			<div class="navbar-brand navbar-default" ></div>
+
+			<div class="navbar-brand navbar-default"></div>
+			<div class="navbar-brand navbar-default"></div>
+			<div class="navbar-brand navbar-default"></div>
+			<div class="navbar-brand navbar-default"></div>
 
 			<form role="search" class="navbar-form navbar-left" id="search">
 				<div class="form-group">
@@ -33,38 +30,34 @@
 				</div>
 				<button class="btn btn-default" type="submit">Search</button>
 
-				
-
-				
 			</form>
-			<div class="navbar-brand navbar-default" ></div>
-			<div class="navbar-brand navbar-default" ></div>
-			<div class="navbar-brand navbar-default" ></div>
-			<div class="navbar-brand navbar-default" ></div> 
-			<div class="navbar-brand navbar-default" ></div> 
-			<div class="navbar-brand navbar-default" ></div> 
-			<div class="navbar-brand navbar-default" ></div> 
-			<div class="navbar-brand navbar-default" ></div> 
-			<div class="navbar-brand navbar-default" ></div> 
-			<div class="navbar-brand navbar-default" ></div>
-			<div class="navbar-brand navbar-default" ></div>
-			<div class="navbar-brand navbar-default" ></div>
-			<div class="navbar-brand navbar-center" href="#">Movies</div> 
-			
+			<div class="navbar-brand navbar-default"></div>
+			<div class="navbar-brand navbar-default"></div>
+			<div class="navbar-brand navbar-default"></div>
+			<div class="navbar-brand navbar-default"></div>
+			<div class="navbar-brand navbar-default"></div>
+			<div class="navbar-brand navbar-default"></div>
+			<div class="navbar-brand navbar-default"></div>
+			<div class="navbar-brand navbar-default"></div>
+			<div class="navbar-brand navbar-default"></div>
+			<div class="navbar-brand navbar-default"></div>
+			<div class="navbar-brand navbar-default"></div>
+			<div class="navbar-brand navbar-default"></div>
+			<div class="navbar-brand navbar-center" href="#">Movies</div>
+
 			<div class="navbar-form navbar-right">
-					<button class="btn btn-default" onclick="graphMovie2()" type="submit">Film Correlati</button>
-					<button class="btn btn-default" type="submit">Cast</button>
-					<button class="btn btn-default" type="submit">Dettagli</button>
-					<div class="navbar-brand navbar-center"></div> 
-					
+				<button class="btn btn-default" onclick="graphMovie2()"
+					type="submit">Film Correlati</button>
+				<button class="btn btn-default" onclick="showCast()" type="submit">Cast</button>
+				<button class="btn btn-default" type="submit">Dettagli</button>
+				<div class="navbar-brand navbar-center"></div>
+
 			</div>
-			<div class="navbar-brand navbar-right" ></div> 
-			<div class="navbar-brand navbar-right" ></div> 
+			<div class="navbar-brand navbar-right"></div>
+			<div class="navbar-brand navbar-right"></div>
 
 		</div>
 	</nav>
-
-
 
 	<div class="row" id="row">
 		<div class="col-md-5" id="tabella">
@@ -86,47 +79,17 @@
 
 	<div class="wrapper" id="wrapper"></div>
 
-
-	<style type="text/css">
-.node {
-	cursor: pointer;
-}
-
-.node circle {
-	fill: #fff;
-	stroke: steelblue;
-	stroke-width: 1.5px;
-}
-
-.node text {
-	font: 10px sans-serif;
-}
-
-.node.actor {
-	fill: #888;
-}
-
-.node.movie {
-	fill: #BBB;
-}
-
-.link {
-	fill: none;
-	stroke: #ccc;
-	stroke-width: 1.5px;
-}
-</style>
+	<div id="cast-wrapper"></div>
 
 	<script type="text/javascript"
 		src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<!--  <script src="/jsonTree.js"></script> -->
 
 	<script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
 	<script src="require.js"></script>
 	<script type="text/javascript">
-	
-		var selectedFilm; 
-		
+		var selectedFilm;
+		var selectedMovieId;
+
 		$(function() {
 			function showMovie(title) {
 				$
@@ -152,34 +115,27 @@
 			function search() {
 				$(document.getElementById("tabella")).show();
 				var query = $("#search").find("input[name=search]").val();
-				$
-						.get(
-								"/movies/search/findByTitleLike?title=*"
-										+ encodeURIComponent(query) + "*",
-								function(data) {
-									var t = $("table#results tbody").empty();
-									if (!data)
-										return;
-									data = data["_embedded"].movies;
-									data
-											.forEach(function(movie) {
-												$(
-														"<tr><td class='movie'>"
-																+ movie.title
-																+ "</td></tr>")
-														.appendTo(t)
-														.click(
-																function() {
-																	selectedFilm = $(
-																			this)
-																			.find(
-																					"td.movie")
-																			.text()
-																	graphMovie(selectedFilm);
-																})
-											});
-									showMovie(data[0].title);
-								}, "json");
+				$.get("/movies/search/findByTitleLike?title=*"
+						+ encodeURIComponent(query) + "*", function(data) {
+					var t = $("table#results tbody").empty();
+					if (!data)
+						return;
+					data = data["_embedded"].movies;
+					data
+							.forEach(function(movie) {
+								$(
+										"<tr><td class='movie'>" + movie.title
+												+ "</td></tr>").appendTo(t)
+										.click(
+												function() {
+													selectedFilm = $(this)
+															.find("td.movie")
+															.text()
+													graphMovie(selectedFilm);
+												})
+							});
+					showMovie(data[0].title);
+				}, "json");
 				return false;
 			}
 
@@ -227,7 +183,6 @@
 
 			var svg = d3.select("body").append("svg")
 					.attr("width", width * 1.3).attr("height", height * 1.4)
-			// .on("click", reset);
 
 			var g = svg.append("g");
 
@@ -246,7 +201,9 @@
 			d3.json("/graph?title=".concat(movie), function(error, graph) {
 				if (error)
 					return;
-
+				
+				selectedMovieId = graph.nodes[0].id
+				
 				force.nodes(graph.nodes).links(graph.links).start();
 
 				link = link.data(graph.links).enter().append("line").attr(
@@ -275,19 +232,72 @@
 		function deleteGraph() {
 			d3.select("svg").remove();
 		}
-		
-		function graphMovie2()	{
-			
-			graphMovie(selectedFilm);
-			
-		}
-	</script>
 
+		function graphMovie2() {
+			
+			d3.select('#cast-wrapper').remove()
+			graphMovie(selectedFilm);
+
+		}
+
+		function showCast() {
+			d3.select('#cast-wrapper').remove()
+			deleteGraph();
+			
+			d3.select("body")
+			.append('div')
+			.attr("id","cast-wrapper")
+			d3.json("/cast?id=".concat(selectedMovieId), function(error, data) {
+		        if (error) throw error;
+
+		        var sortAscending = true;
+		        var table = d3.select('#cast-wrapper').append('table');
+		        var titles = d3.keys(data[0]);
+		        var headers = table.append('thead').append('tr')
+		            .selectAll('th')
+		            .data(titles).enter()
+		            .append('th')
+		            .text(function (d) {
+		                return d;
+		            })
+		            .on('click', function (d) {
+		                headers.attr('class', 'header');
+
+		                if (sortAscending) {
+		                    rows.sort(function(a, b) { return b[d] < a[d]; });
+		                    sortAscending = false;
+		                    this.className = 'aes';
+		                } else {
+		                    rows.sort(function(a, b) { return b[d] > a[d]; });
+		                    sortAscending = true;
+		                    this.className = 'des';
+		                }
+
+		            });
+
+		        var rows = table.append('tbody').selectAll('tr')
+		            .data(data).enter()
+		            .append('tr');
+		        rows.selectAll('td')
+		            .data(function (d) {
+		                return titles.map(function (k) {
+		                    return { 'value': d[k], 'name': k};
+		                });
+		            }).enter()
+		            .append('td')
+		            .attr('data-th', function (d) {
+		                return d.name;
+		            })
+		            .text(function (d) {
+		                return d.value;
+		            });
+		    });
+		}
+		
+	</script>
 	<script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
 	<script type="text/javascript" src="./jsonParser.js">
-		
 	</script>
-
-
+	
 </body>
 </html>

@@ -21,7 +21,7 @@ public class MovieService {
 		Iterator<Movie> result = movies.iterator();
 		while (result.hasNext()) {
 			Movie movie = result.next();
-			nodes.add(this.map("title", movie.getTitle(), "label", "movie"));
+			nodes.add(this.map("title", movie.getTitle(), "id", movie.getId_movie()));
 			rels.add(this.map("source", 0, "target", i));
 			i++;
 		}

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.uniroma3.polyVisualization.services.ActorService;
 import it.uniroma3.polyVisualization.services.CastService;
 import it.uniroma3.polyVisualization.services.MovieDetailsService;
 import it.uniroma3.polyVisualization.services.MovieService;
@@ -17,12 +18,14 @@ public class MovieController {
 	final MovieService movieService;
 	final CastService castService;
 	final MovieDetailsService movieDetailsService;
+	final ActorService actorService;
 
 	@Autowired
-	public MovieController(MovieService movieService,CastService castService, MovieDetailsService movieDetailsService) {
+	public MovieController(MovieService movieService,CastService castService, MovieDetailsService movieDetailsService, ActorService actorService) {
 		this.movieService = movieService;
 		this.castService = castService;
 		this.movieDetailsService = movieDetailsService;
+		this.actorService = actorService;
 	}
 
 	@RequestMapping("/graph")
@@ -38,6 +41,11 @@ public class MovieController {
 	@RequestMapping("/movieDetails")
 	public String details(@RequestParam(value = "id",required = true) String id) {
 		return this.movieDetailsService.details(id);
+	}
+	
+	@RequestMapping("/filmography")
+	public String actor(@RequestParam(value = "actor",required = true) String name) {
+		return this.actorService.filmography(name);
 	}
 	
 }

@@ -5,7 +5,7 @@
 }
 
 .node circle {
-	fill: #fff;
+	fill: #0000ff;
 	stroke: steelblue;
 	stroke-width: 1.5px;
 }
@@ -41,7 +41,7 @@ tr:nth-of-type(odd) {
 }
 
 th {
-	background: #333;
+	background: #0000FF;
 	color: white;
 	font-weight: bold;
 	cursor: s-resize;

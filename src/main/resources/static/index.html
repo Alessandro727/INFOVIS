@@ -31,25 +31,21 @@
 				<button class="btn btn-default" type="submit">Search</button>
 
 			</form>
+
+	
 			<div class="navbar-brand navbar-default"></div>
 			<div class="navbar-brand navbar-default"></div>
 			<div class="navbar-brand navbar-default"></div>
 			<div class="navbar-brand navbar-default"></div>
 			<div class="navbar-brand navbar-default"></div>
 			<div class="navbar-brand navbar-default"></div>
-			<div class="navbar-brand navbar-default"></div>
-			<div class="navbar-brand navbar-default"></div>
-			<div class="navbar-brand navbar-default"></div>
-			<div class="navbar-brand navbar-default"></div>
-			<div class="navbar-brand navbar-default"></div>
-			<div class="navbar-brand navbar-default"></div>
-			<div class="navbar-brand navbar-center" href="#">Movies</div>
+			<div class="navbar-brand navbar-center" href="#">Ciak Movies</div>
 
 			<div class="navbar-form navbar-right">
 				<button class="btn btn-default" onclick="graphMovie2()"
-					type="submit">Film Correlati</button>
+					type="submit">Releted Movies</button>
 				<button class="btn btn-default" onclick="showCast()" type="submit">Cast</button>
-				<button class="btn btn-default" onclick="showMovieDetails()" type="submit">Dettagli</button>
+				<button class="btn btn-default" onclick="showMovieDetails()" type="submit">Details</button>
 				<div class="navbar-brand navbar-center"></div>
 
 			</div>
@@ -65,9 +61,7 @@
 				<div class="panel-heading">Search Results</div>
 				<table id="results" class="table table-striped table-hover">
 					<thead>
-						<tr>
-							<th>Movie</th>
-						</tr>
+						
 					</thead>
 					<tbody>
 					</tbody>
@@ -114,6 +108,7 @@
 				return false;
 			}
 			function search() {
+				clearAll();
 				$(document.getElementById("tabella")).show();
 				var query = $("#search").find("input[name=search]").val();
 				$.get("/movies/search/findByTitleLike?title=*"

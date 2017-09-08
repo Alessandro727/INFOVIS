@@ -35,13 +35,13 @@
     margin-right: 8px;
 }
 .jsontree_label {
-    font-weight: normal;
     vertical-align: top;
-    color: #000;
+    color: #0000ff;
     position: relative;
     padding: 1px;
     border-radius: 4px;
     cursor: default;
+    font-weight: bold;
 }
 .jsontree_node_marked > .jsontree_label-wrapper > .jsontree_label {
     background: #fff2aa;
@@ -64,8 +64,7 @@
     font-weight: bold;
 }
 .jsontree_value_string {
-    color: #025900;
-    font-weight: bold;
+    color: #000;
 }
 .jsontree_value_number {
     color: #000E59;

@@ -32,9 +32,20 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/src/main/resources/externalJars/Polystore.jar</systemPath>
 		</dependency>
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter</artifactId> 
-			<exclusions> <exclusion> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-logging</artifactId> 
-			</exclusion> </exclusions> </dependency> -->
+		<dependency>
+			<groupId>mongo.jdbc</groupId>
+			<artifactId>mongodb.jdbc.MongoDriver</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/externalJars/mongodb_unityjdbc_full.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>mongo.jdbc</groupId>
+			<artifactId>mongodb.jdbc.MongoDriver</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/externalJars/unityjdbc.jar</systemPath>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-neo4j</artifactId>
@@ -156,7 +167,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 	<repositories>
 		<repository>

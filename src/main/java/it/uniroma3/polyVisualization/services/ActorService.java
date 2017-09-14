@@ -25,11 +25,23 @@ public class ActorService {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private String parse(JSONArray array) {
 		Iterator<?> i = array.iterator();
 		while(i.hasNext()) {
 			JSONObject el = (JSONObject) i.next();
 			el.remove("id_movie");
+			
+			/*this change is done due to the bubble chart visualization*/
+			String temp;
+			/*TITLE -> NAME*/
+			temp = (String) el.remove("title");
+			temp = (temp.equals("null")) ? "unknown" : temp;
+			el.put("name", temp);
+			/*VOTE_AVERAGE -> COUNT*/
+			temp = (String) el.remove("vote_average");
+			temp = (temp.equals("null")) ? "0" : temp;
+			el.put("size", temp);
 		}
 		return array.toString();
 	}

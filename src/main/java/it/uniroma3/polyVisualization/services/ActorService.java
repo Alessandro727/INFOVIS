@@ -1,5 +1,9 @@
 package it.uniroma3.polyVisualization.services;
 
+import java.util.Iterator;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +17,21 @@ public class ActorService {
 	@Transactional(readOnly = true)
 	public String filmography(String name) {
 		try {
-			return this.actorRepository.filmography(name).toString();
+			JSONArray array = this.actorRepository.filmography(name);
+			return this.parse(array);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "ERRORE"; //TODO pagina di errore
 		}
+	}
+
+	private String parse(JSONArray array) {
+		Iterator<?> i = array.iterator();
+		while(i.hasNext()) {
+			JSONObject el = (JSONObject) i.next();
+			el.remove("id_movie");
+		}
+		return array.toString();
 	}
 	
 }

@@ -25,6 +25,13 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>uniroma3</groupId>
+			<artifactId>it.uniroma3.polystoreMain</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/externalJars/Polystore.jar</systemPath>
+		</dependency>
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter</artifactId> 
 			<exclusions> <exclusion> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-logging</artifactId> 
 			</exclusion> </exclusions> </dependency> -->

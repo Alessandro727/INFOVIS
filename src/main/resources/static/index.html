@@ -280,9 +280,9 @@
 					return d.name;
 				}).text(function(d) {
 					return d.value;
-				}).attr('onclick', function(d){
+				}).on('click', function(d){
 					if (String(d.name) == "Actor")	{
-						return 'movies2Actor()';
+						movies2Actor(String(d.value))
 					}
 					
 				});
@@ -323,10 +323,69 @@
 			d3.select('#cast-wrapper').remove();
 			d3.select("svg").remove();
 			d3.select('#wrapper').remove();
+			d3.select('#filmography-wrapper').remove();
 		}
 
-		function movies2Actor() {
-			console.log("tuttoapposto")
+		function movies2Actor(d) {
+			
+			clearAll();
+			
+			d3.select("body").append('div').attr("id", "filmography-wrapper")
+			d3.json("/filmography?actor=".concat(d), function(error, data) {
+				if (error)
+					throw error;
+
+				var sortAscending = true;
+				var table = d3.select('#filmography-wrapper').append('table');
+				var titles = d3.keys(data[0]);
+				var headers = table.append('thead').append('tr')
+						.selectAll('th').data(titles).enter().append('th')
+						.text(function(d) {
+							return d;
+						}).on('click', function(d) {
+							headers.attr('class', 'header');
+
+							if (sortAscending) {
+								rows.sort(function(a, b) {
+									return b[d] < a[d];
+								});
+								sortAscending = false;
+								this.className = 'aes';
+							} else {
+								rows.sort(function(a, b) {
+									return b[d] > a[d];
+								});
+								sortAscending = true;
+								this.className = 'des';
+							}
+
+						});
+				
+				
+				
+				var rows = table.append('tbody').selectAll('tr').data(data)
+						.enter().append('tr');
+				rows.selectAll('td').data(function(d) {
+					return titles.map(function(k) {
+						return {
+							'value' : d[k],
+							'name' : k
+						};
+					});
+				}).enter().append('td').attr('data-th', function(d) {
+					
+					return d.name;
+				}).text(function(d) {
+					return d.value;
+				}).on('click', function(d){
+					if (String(d.name) == "title")	{
+						graphMovie(d.value)
+					}
+					
+				});
+
+			});
+			
 		}
 	</script>
 	<script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>

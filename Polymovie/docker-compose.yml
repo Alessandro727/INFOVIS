@@ -1,0 +1,23 @@
+version: '2'
+services:
+  mongodb:
+    image: mongo:3.4.6
+    ports: 
+    - 27017:27017
+    volumes:
+      - ./db/mongodb:/data/db
+  neo4j:
+    image: neo4j:3.2.1
+    environment:
+    - NEO4J_AUTH=neo4j/root
+    ports: 
+    - 7474:7474
+    - 7687:7687
+    volumes:
+      - ./db/neo4j:/data
+  postgres:
+    image: postgres:9.6
+    ports: 
+    - 5432:5432
+    volumes:
+      - ./db/postgres:/var/lib/postgresql/data

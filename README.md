@@ -1,10 +1,10 @@
-#INFOVIS PROJECT
+# INFOVIS PROJECT
 
-##Requirements
+## Requirements
 * [Docker](https://www.docker.com/)
 * [Docker Compose](https://www.docker.com/)
 
-##Setup & run
+## Setup & run
 To setup the databases follow the instruction [here](Polymovie/README.md).
 To start the containers use the following command in the "Polymovie" folder.
 
@@ -20,6 +20,6 @@ To stop the containers use:
 
     docker-compose stop
 
-##Authors
+## Authors
 * Valerio Cetorelli
 * Alessandro Fogli

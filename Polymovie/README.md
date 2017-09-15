@@ -1,4 +1,4 @@
-#How to setup Docker Compose
+# How to setup Docker Compose
 To setup Docker Compose extract the content following tar.gz archives in the path Polymovie/db, next to the hidden file .gitkeep. 
 
 * link

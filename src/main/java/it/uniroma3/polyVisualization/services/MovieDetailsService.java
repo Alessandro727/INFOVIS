@@ -23,7 +23,7 @@ public class MovieDetailsService {
 			return this.parse(details);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "ERRORE"; //TODO pagina di errore
+			return "ERRORE";
 		}
 	}
 

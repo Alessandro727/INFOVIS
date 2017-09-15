@@ -21,7 +21,7 @@ public class CastService {
 			return this.parse(array);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "ERRORE"; //TODO pagina di errore
+			return "ERRORE";
 		}
 	}
 

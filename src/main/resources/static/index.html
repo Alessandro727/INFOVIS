@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
 	href="http://neo4j-contrib.github.io/developer-resources/language-guides/assets/css/main.css">
@@ -55,7 +56,15 @@
 
 		</div>
 	</nav>
-
+	
+	<div class="testo" id="testo">
+	<p>Il seguente progetto permette la navigazione e la visualizzazione di dati di diversi film risiedenti su tre differenti database.</p>
+	<p>E' possibile partire da un qualsiasi film utilizzando la barra di ricerca.</p>
+	<p>Una volta trovato e selezionato il film sar&agrave; possibile vedere tutti i film correlati, il cast ed i dettagli di quest'ultimo selezionando la modalit&agrave; di visualizzazione migliore attraverso l'utilizzo dei bottoni.</p>
+	</div>
+	<div class="freccia1" id="freccia1">
+	<IMG SRC="freccia.png"  WIDTH=230 HEIGHT=100> </img>
+	</div>
 	<div class="row" id="row">
 		<div class="col-md-5" id="tabella">
 			<div class="panel panel-default">
@@ -71,7 +80,12 @@
 		</div>
 
 	</div>
+	
+	<div class="freccia2" id="freccia2">
+	<IMG SRC="freccia.png"  WIDTH=230 HEIGHT=100> </img>
+	</div>
 
+	
 	<div class="wrapper" id="wrapper"></div>
 
 	<div id="cast-wrapper"></div>
@@ -89,6 +103,7 @@
 	<script type="text/javascript">
 		var selectedFilm;
 		var selectedMovieId;
+		var i=0;
 
 		$(function() {
 			function showMovie(title) {
@@ -113,6 +128,13 @@
 				return false;
 			}
 			function search() {
+				
+				if (i==1)	{
+					d3.select('#testo').remove();
+					d3.select('#freccia1').remove();
+					d3.select('#freccia2').remove();
+				}
+				i=i+1;
 				clearAll();
 				$(document.getElementById("tabella")).show();
 				var query = $("#search").find("input[name=search]").val();
@@ -133,11 +155,13 @@
 															.find("td.movie")
 															.text()
 													graphMovie(selectedFilm);
+													
 												})
 							});
 					showMovie(data[0].title);
 				}, "json");
 				return false;
+				
 			}
 
 			$("#search").submit(search);
@@ -146,6 +170,8 @@
 
 		function graphMovie(movie) {
 			
+			d3.select("body").append("div").attr("class","testo2").attr("id","testo2").append("p").text("Effettuando un doppio click su un qualsiasi nodo è possibile visualizzare i dati di quest'ultimo.")
+			d3.select("body").append("div").attr("class", "freccia3").attr("id","freccia3").append("img").attr("src","freccia.png").attr("width","230").attr("height","100")
 			selectedFilm = movie;
 
 			clearAll();
@@ -218,7 +244,8 @@
 				}).attr("class", function(d) {
 					return "node " + d.label
 				}).attr("r", 40).on("dblclick", function(data) {
-					console.log(data)
+					d3.select("freccia3").remove();
+					d3.select("testo2").remove();
 					graphMovie(data.title);
 				}).call(force.drag);
 
@@ -233,6 +260,8 @@
 		}
 
 		function graphMovie2() {
+			d3.select("freccia3").remove();
+			d3.select("testo2").remove();
 			graphMovie(selectedFilm);
 		}
 
@@ -328,6 +357,7 @@
 			d3.select("svg").remove();
 			d3.select('#wrapper').remove();
 			d3.select('#filmography-wrapper').remove();
+			
 		}
 
 		function movies2Actor(d) {

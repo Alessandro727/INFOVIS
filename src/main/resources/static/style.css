@@ -1,5 +1,59 @@
 @CHARSET "UTF-8";
 
+.testo {
+	position: absolute;
+	left: 600px;
+	width: 300px;
+	height: 450px;
+	font-size: 15px;
+	color: #000;
+	font-weight:bold;
+	top: 100;
+	font-family: "Times New Roman", Times, serif;
+	
+}
+
+.freccia1 {
+	
+	position: absolute;
+	left: 900px;
+	top: 125px;
+	transform: rotate(-45deg);
+	
+}
+
+.freccia2 {
+	
+	position: absolute;
+	left: 350px;
+	top: 90px;
+	transform: rotate(-155deg);
+	
+}
+
+.testo2 {
+	position: absolute;
+	left: 200px;
+	width: 300px;
+	height: 450px;
+	font-size: 15px;
+	color: #000;
+	font-weight:bold;
+	top: 100;
+	font-family: "Times New Roman", Times, serif;
+	
+}
+
+.freccia3 {
+	
+	position: absolute;
+	left: 300px;
+	top: 200px;
+	transform: rotate(45deg);
+	
+}
+
+
 .node {
 	cursor: pointer;
 }

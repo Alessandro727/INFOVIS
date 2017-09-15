@@ -1,6 +1,7 @@
 package it.uniroma3.polyVisualization.services;
 
 import java.util.Iterator;
+import java.util.regex.Pattern;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -37,6 +38,7 @@ public class ActorService {
 			/*TITLE -> NAME*/
 			temp = (String) el.remove("title");
 			temp = (temp.equals("null")) ? "unknown" : temp;
+			temp = temp.replaceAll(Pattern.quote("&"), "and");
 			el.put("name", temp);
 			/*VOTE_AVERAGE -> COUNT*/
 			temp = (String) el.remove("vote_average");

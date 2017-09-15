@@ -32,20 +32,25 @@ public class MovieController {
 	public Map<String, Object> graph(@RequestParam(value = "title",required = true) String title) {
 		return this.movieService.graph(title);
 	}
-	
+
 	@RequestMapping("/cast")
 	public String cast(@RequestParam(value = "id",required = true) String id) {
 		return this.castService.details(id);
 	}
-	
+
 	@RequestMapping("/movieDetails")
 	public String details(@RequestParam(value = "id",required = true) String id) {
 		return this.movieDetailsService.details(id);
 	}
-	
+
 	@RequestMapping("/filmography")
 	public String actor(@RequestParam(value = "actor",required = true) String name) {
 		return this.actorService.filmography(name);
 	}
-	
+
+	@RequestMapping("/bubbleChart")
+	public String tree(@RequestParam(value = "json",required = true) String json) {
+		return json;
+	}
+
 }

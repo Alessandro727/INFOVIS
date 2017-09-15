@@ -5,7 +5,7 @@
 
 	<groupId>com.neo4j.examples</groupId>
 	<artifactId>polyVisualization</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
 	<name>PolyVisualization</name>
@@ -33,7 +33,7 @@
 			<systemPath>${project.basedir}/src/main/resources/externalJars/Polystore.jar</systemPath>
 		</dependency>
 		<dependency>
-			<groupId>mongo.jdbc</groupId>
+			<groupId>mongo.jdbc.full</groupId>
 			<artifactId>mongodb.jdbc.MongoDriver</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>

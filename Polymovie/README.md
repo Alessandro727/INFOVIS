@@ -22,3 +22,7 @@ At the end the Polymovie folder should look like this:
     |       └── base  
     |       └── global  
     |       └── ...      
+    
+### Download scriprt
+
+We also provide a simple bash script (located in this folder) that will do all the work for you. 

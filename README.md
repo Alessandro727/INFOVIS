@@ -1,8 +1,15 @@
 # INFOVIS PROJECT
 
+## Description
+This project was developed during the [Information Visualization Course](http://www.dia.uniroma3.it/~infovis/) at Roma Tre University.  
+Our project allows the user to navigate different informations about movies and actors taken from [The Movie DB](https://www.themoviedb.org/) and saved in three different databases (MongoDB, Neo4j and PostgreSQL).  
+
 ## Requirements
 * [Docker](https://www.docker.com/)
 * [Docker Compose](https://docs.docker.com/compose/)
+
+## Dependencies
+For further information about this project's dependencies you can check the [pom.xml](pom.xml) file and the readme [here](src/main/resources/externalJars/README.md).
 
 ## Setup & run
 To setup the databases follow the instruction [here](Polymovie/README.md).

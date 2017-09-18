@@ -15,14 +15,17 @@
 </head>
 
 <body>
-
+	
+	<img class="logo" src="/tmdb_logo.png" width="40" height="40">
+	
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
-
 			<div class="navbar-brand navbar-default"></div>
 			<div class="navbar-brand navbar-default"></div>
 			<div class="navbar-brand navbar-default"></div>
-			<div class="navbar-brand navbar-default"></div>
+			<div class="navbar-brand navbar-default">
+			</div>
+			
 
 			<form role="search" class="navbar-form navbar-left" id="search">
 				<div class="form-group">
@@ -38,9 +41,8 @@
 			<div class="navbar-brand navbar-default"></div>
 			<div class="navbar-brand navbar-default"></div>
 			<div class="navbar-brand navbar-default"></div>
-			<div class="navbar-brand navbar-default"></div>
-			<div class="navbar-brand navbar-default"></div>
-			<div class="navbar-brand navbar-center" href="#">Ciak Movies</div>
+			
+			<div class="navbar-brand navbar-center">The Movie Database Visualization</div>
 
 			<div class="navbar-form navbar-right">
 				<button class="btn btn-default" onclick="graphMovie2()"
@@ -81,6 +83,14 @@
 
 	</div>
 	
+	<div class="testo2" id="testo2" style= "display: none;">
+	<p>Effettuando un doppio click su un qualsiasi nodo è possibile visualizzare i dati di quest'ultimo.</p>
+	</div>
+	
+	<div class="freccia3" id="freccia3" style= "display: none;">
+	<IMG SRC="freccia.png"  WIDTH=230 HEIGHT=100> </img>
+	</div>
+			
 	<div class="freccia2" id="freccia2">
 	<IMG SRC="freccia.png"  WIDTH=230 HEIGHT=100> </img>
 	</div>
@@ -104,6 +114,10 @@
 		var selectedFilm;
 		var selectedMovieId;
 		var i=0;
+
+		
+		
+		
 
 		$(function() {
 			function showMovie(title) {
@@ -155,6 +169,8 @@
 															.find("td.movie")
 															.text()
 													graphMovie(selectedFilm);
+													$(document.getElementById("testo2")).show();
+													$(document.getElementById("freccia3")).show();
 													
 												})
 							});
@@ -170,8 +186,6 @@
 
 		function graphMovie(movie) {
 			
-			d3.select("body").append("div").attr("class","testo2").attr("id","testo2").append("p").text("Effettuando un doppio click su un qualsiasi nodo è possibile visualizzare i dati di quest'ultimo.")
-			d3.select("body").append("div").attr("class", "freccia3").attr("id","freccia3").append("img").attr("src","freccia.png").attr("width","230").attr("height","100")
 			selectedFilm = movie;
 
 			clearAll();
@@ -244,8 +258,8 @@
 				}).attr("class", function(d) {
 					return "node " + d.label
 				}).attr("r", 40).on("dblclick", function(data) {
-					d3.select("freccia3").remove();
-					d3.select("testo2").remove();
+					$(document.getElementById("testo2")).hide();
+					$(document.getElementById("freccia3")).hide();
 					graphMovie(data.title);
 				}).call(force.drag);
 
@@ -260,12 +274,15 @@
 		}
 
 		function graphMovie2() {
-			d3.select("freccia3").remove();
-			d3.select("testo2").remove();
 			graphMovie(selectedFilm);
 		}
 
 		function showCast() {
+			
+			$(document.getElementById("testo2")).hide();
+			$(document.getElementById("freccia3")).hide();
+		
+			
 			clearAll();
 
 			d3.select("body").append('div').attr("id", "cast-wrapper")
@@ -312,18 +329,34 @@
 
 					return d.name;
 				}).text(function(d) {
+					if (String(d.name) == "Actor") {
+						d3.select(this).style("font-weight","bold")
+					}
+					
 					return d.value;
 				}).on('click', function(d) {
 					if (String(d.name) == "Actor") {
+						
 						bubbleChartVis(String(d.value))
 					}
 
+				}).on("mouseover", function(d){
+					if(String(d.name) == "Actor")
+						
+						d3.select(this).style("color", "red");
+				}).on("mouseout", function(d){
+					if(String(d.name) == "Actor")
+						
+						d3.select(this).style("color", null);
 				});
 
 			});
 		}
 
 		function showMovieDetails() {
+			
+			$(document.getElementById("testo2")).hide();
+			$(document.getElementById("freccia3")).hide();
 			clearAll();
 
 			d3.select("body").append('div').attr("id", "wrapper")
@@ -358,67 +391,6 @@
 			d3.select('#wrapper').remove();
 			d3.select('#filmography-wrapper').remove();
 			
-		}
-
-		function movies2Actor(d) {
-
-			clearAll();
-
-			d3.select("body").append('div').attr("id", "filmography-wrapper")
-			d3.json("/filmography?actor=".concat(d), function(error, data) {
-				if (error)
-					throw error;
-
-				var sortAscending = true;
-				var table = d3.select('#filmography-wrapper').append('table');
-				var titles = d3.keys(data[0]);
-				var headers = table.append('thead').append('tr')
-						.selectAll('th').data(titles).enter().append('th')
-						.text(function(d) {
-							return d;
-						}).on('click', function(d) {
-							headers.attr('class', 'header');
-
-							if (sortAscending) {
-								rows.sort(function(a, b) {
-									return b[d] < a[d];
-								});
-								sortAscending = false;
-								this.className = 'aes';
-							} else {
-								rows.sort(function(a, b) {
-									return b[d] > a[d];
-								});
-								sortAscending = true;
-								this.className = 'des';
-							}
-
-						});
-
-				var rows = table.append('tbody').selectAll('tr').data(data)
-						.enter().append('tr');
-				rows.selectAll('td').data(function(d) {
-					return titles.map(function(k) {
-						return {
-							'value' : d[k],
-							'name' : k
-						};
-					});
-				}).enter().append('td').attr('data-th', function(d) {
-
-					return d.name;
-				}).text(function(d) {
-					return d.value;
-				}).on('click', function(d) {
-					if (String(d.name) == "title") {
-						selectedFilm = d.value
-						graphMovie(d.value)
-					}
-
-				});
-
-			});
-
 		}
 
 		function bubbleChartVis(act) {
@@ -487,7 +459,7 @@
 								});
 
 						node.append("circle").attr("r", function(d) {
-							return d.value*d.r/9;
+							return d.value*d.r/8.5;
 						}).style("fill", function(d) {
 							return color(d.packageName);
 						}).on("mouseover", function(d) {

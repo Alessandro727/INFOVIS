@@ -114,6 +114,7 @@
 		var selectedFilm;
 		var selectedMovieId;
 		var i=0;
+		var j=0;
 
 		
 		
@@ -143,6 +144,9 @@
 			}
 			function search() {
 				
+				$(document.getElementById("testo2")).hide();
+				$(document.getElementById("freccia3")).hide();
+				
 				if (i==1)	{
 					d3.select('#testo').remove();
 					d3.select('#freccia1').remove();
@@ -169,9 +173,11 @@
 															.find("td.movie")
 															.text()
 													graphMovie(selectedFilm);
-													$(document.getElementById("testo2")).show();
-													$(document.getElementById("freccia3")).show();
-													
+													if (j==0)	{
+														$(document.getElementById("testo2")).show();
+														$(document.getElementById("freccia3")).show();
+													}
+													j++
 												})
 							});
 					showMovie(data[0].title);
